@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+{% block title %}Resultados · ScienceETI{% endblock %}
+
+{% block content %}
+  <div class="grid">
+    <div class="card half">
+      <h1 class="h1">Resultados</h1>
+      <p class="sub">{{ assignment.title }}</p>
+
+      <div class="row" style="justify-content:flex-start;">
+        <span class="badge">Puntaje: <b>{{ earned }}</b> / {{ total }}</span>
+        <span class="badge">Calificación: <b>{{ grade|floatformat:1 }}%</b></span>
+      </div>
+
+      <div class="hr"></div>
+      <a class="btn btn-primary" href="{% url 'dashboard' %}">Volver a actividades</a>
+    </div>
+
+    <div class="card half">
+      <h2 class="card-title">Sugerencia</h2>
+      <p class="meta">
+        Si tu calificación no es la esperada, revisa: unidades, signo, redondeo y despeje.
+      </p>
+      <p class="small">
+        La práctica constante con variaciones numéricas es lo que realmente “sella” el aprendizaje.
+      </p>
+    </div>
+  </div>
+{% endblock %}

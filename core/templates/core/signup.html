@@ -1,0 +1,32 @@
+{% extends "core/base.html" %}
+{% block title %}Registro · ScienceETI{% endblock %}
+
+{% block content %}
+  <div class="grid">
+    <div class="card half">
+      <h1 class="h1">Registro de alumno</h1>
+      <p class="sub">Crea tu cuenta con el <b>código de grupo</b> proporcionado.</p>
+
+      {% if feedback %}
+        <div class="alert alert-bad">{{ feedback }}</div>
+      {% endif %}
+
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" type="submit">Crear cuenta</button>
+      </form>
+
+      <div class="hr"></div>
+      <p class="small">¿Ya tienes cuenta? <a href="{% url 'login' %}">Entrar</a></p>
+    </div>
+
+    <div class="card half">
+      <h2 class="card-title">Código de grupo</h2>
+      <p class="meta">Ejemplo: <b>2B-2026</b></p>
+      <p class="small">
+        Este código vincula tu cuenta al grupo correcto para asignarte actividades.
+      </p>
+    </div>
+  </div>
+{% endblock %}

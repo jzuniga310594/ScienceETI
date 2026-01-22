@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+{% block title %}Aviso · ScienceETI{% endblock %}
+
+{% block content %}
+  <div class="grid">
+    <div class="card">
+      <h1 class="h1">Aviso</h1>
+      <div class="alert">{{ msg }}</div>
+      <div class="hr"></div>
+      <a class="btn btn-primary" href="{% url 'dashboard' %}">Volver</a>
+    </div>
+  </div>
+{% endblock %}

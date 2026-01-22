@@ -1,0 +1,37 @@
+{% extends "core/base.html" %}
+{% block title %}Actividades · ScienceETI{% endblock %}
+
+{% block content %}
+  <h1 class="h1">Actividades</h1>
+  <p class="sub">Selecciona una actividad disponible para comenzar.</p>
+
+  <div class="grid">
+    {% for a in assignments %}
+      <div class="card">
+        <div class="row">
+          <div>
+            <div class="card-title">{{ a.title }}</div>
+            <div class="meta">
+              Disponible: {{ a.start_at }} → {{ a.end_at }}
+            </div>
+          </div>
+
+          <div class="row" style="justify-content:flex-end;">
+            {% if a.is_open %}
+              <a class="btn btn-primary" href="{% url 'start_assignment' a.id %}">Iniciar</a>
+              <a class="btn" href="{% url 'results' a.id %}">Resultados</a>
+            {% else %}
+              <span class="badge">No disponible</span>
+              <a class="btn" href="{% url 'results' a.id %}">Resultados</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="card">
+        <div class="card-title">Sin actividades</div>
+        <p class="meta">Aún no hay actividades asignadas a tu grupo.</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

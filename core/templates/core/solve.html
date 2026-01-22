@@ -1,0 +1,66 @@
+{% extends "core/base.html" %}
+{% block title %}Resolver · ScienceETI{% endblock %}
+
+{% block content %}
+  <div class="grid">
+    <div class="card">
+      <div class="row">
+        <div>
+          <div class="card-title">{{ assignment.title }}</div>
+          <div class="meta">Ejercicio: {{ ap.order }} · Puntos: {{ ap.points }}</div>
+        </div>
+
+        <div class="row" style="justify-content:flex-end;">
+          <span class="badge">ID intento: {{ instance_id }}</span>
+          <span class="badge">Intentos restantes: <b>{{ attempts_left }}</b></span>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="alert">
+        <b>Problema</b>
+        <div style="margin-top:8px;">{{ prompt }}</div>
+      </div>
+
+      <div style="margin-top:12px;"></div>
+
+      <form method="post">
+        {% csrf_token %}
+        <label>Respuesta{% if unit %} ({{ unit }}){% endif %}</label>
+        <input name="answer" inputmode="decimal" required {% if attempts_left == 0 %}disabled{% endif %}>
+        <div class="row" style="justify-content:flex-start;">
+          <button class="btn btn-primary" type="submit" {% if attempts_left == 0 %}disabled{% endif %}>
+            Enviar respuesta
+          </button>
+          <a class="btn" href="{% url 'results' assignment.id %}">Ver calificación</a>
+        </div>
+      </form>
+
+      {% if feedback %}
+        <div style="margin-top:12px;">
+          {% if "Correcto" in feedback %}
+            <div class="alert alert-ok">{{ feedback }}</div>
+          {% else %}
+            <div class="alert alert-bad">{{ feedback }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="hr"></div>
+
+      <div class="row" style="justify-content:space-between;">
+        <div>
+          {% if prev_id %}
+            <a class="btn" href="{% url 'solve_problem' prev_id %}">← Anterior</a>
+          {% endif %}
+        </div>
+        <div>
+          {% if next_id %}
+            <a class="btn btn-primary" href="{% url 'solve_problem' next_id %}">Siguiente →</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

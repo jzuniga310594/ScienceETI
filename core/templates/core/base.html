@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}ScienceETI{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'core/styles.css' %}">
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-badge"></div>
+        <div>ScienceETI · Física</div>
+      </div>
+
+      <div class="nav-actions">
+        {% if user.is_authenticated %}
+          <span class="pill">Sesión: {{ user.get_username }}</span>
+          <a class="btn btn-ghost" href="{% url 'dashboard' %}">Inicio</a>
+          <form method="post" action="{% url 'logout' %}" style="margin:0;">
+  {% csrf_token %}
+  <button class="btn btn-danger" type="submit">Salir</button>
+</form>
+
+        {% else %}
+          <a class="btn btn-ghost" href="{% url 'login' %}">Entrar</a>
+          <a class="btn btn-primary" href="{% url 'signup' %}">Registrarse</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
